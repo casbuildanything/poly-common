@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package polymarket;
+
+option go_package = "github.com/fuibox/poly-common/pb";
+
+// MessageType 消息类型枚举
+enum MessageType {
+    MESSAGE_TYPE_UNSPECIFIED = 0;
+    MESSAGE_TYPE_TRADE = 1;
+    MESSAGE_TYPE_MARKET_CREATED = 2;
+    MESSAGE_TYPE_MARKET_RESOLVED = 3;
+    MESSAGE_TYPE_POSITION_CHANGED = 4;
+}
+
+// TradeDirection 交易方向
+enum TradeDirection {
+    TRADE_DIRECTION_UNSPECIFIED = 0;
+    TRADE_DIRECTION_BUY = 1;
+    TRADE_DIRECTION_SELL = 2;
+}
+
+// EventType CTF 事件类型
+enum EventType {
+    EVENT_TYPE_UNSPECIFIED = 0;
+    EVENT_TYPE_TRANSFER_SINGLE = 1;
+    EVENT_TYPE_POSITION_SPLIT = 2;
+    EVENT_TYPE_POSITIONS_MERGE = 3;
+    EVENT_TYPE_PAYOUT_REDEMPTION = 4;
+}
+
+// Envelope 消息信封，用于包装不同类型的消息
+message Envelope {
+    MessageType type = 1;
+    int64 timestamp = 2;
+    string source = 3;  // 消息来源服务
+    bytes payload = 4;  // 序列化的具体消息
+}
+

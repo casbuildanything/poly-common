@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package polymarket;
+
+option go_package = "github.com/fuibox/poly-common/pb";
+
+// MarketCreatedEvent 市场创建事件
+// 对应链上 ConditionPreparation 事件
+message MarketCreatedEvent {
+    // 链上信息
+    string tx_hash = 1;
+    uint64 block_number = 2;
+    uint32 log_index = 3;
+    int64 block_timestamp = 4;
+
+    // 市场信息
+    string condition_id = 5;            // Condition ID (hex)
+    string oracle = 6;                  // Oracle 地址
+    string question_id = 7;             // Question ID (bytes32 hex)
+    uint32 outcome_slot_count = 8;      // Outcome 数量
+}
+
+// MarketResolvedEvent 市场解决事件
+message MarketResolvedEvent {
+    string tx_hash = 1;
+    uint64 block_number = 2;
+    int64 block_timestamp = 3;
+
+    string condition_id = 4;
+    string oracle = 5;
+    string question_id = 6;
+    repeated uint32 payout_numerators = 7;  // 赔付分子
+}
+
+// MarketBatch 批量市场事件
+message MarketBatch {
+    repeated MarketCreatedEvent created = 1;
+    repeated MarketResolvedEvent resolved = 2;
+    int64 timestamp = 3;
+}
+

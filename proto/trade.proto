@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package polymarket;
+
+option go_package = "github.com/fuibox/poly-common/pb";
+
+import "common.proto";
+
+// TradeEvent 交易事件
+message TradeEvent {
+    // 链上信息
+    string tx_hash = 1;
+    uint64 block_number = 2;
+    uint32 log_index = 3;
+    int64 block_timestamp = 4;
+
+    // 交易信息
+    string user = 5;                    // 用户地址
+    TradeDirection direction = 6;       // 买入/卖出
+    string token_id = 7;                // CTF Token ID
+    string token_amount = 8;            // Token 数量 (decimal string)
+    string usdc_amount = 9;             // USDC 数量 (decimal string)
+    string price = 10;                  // 价格 (usdc/token)
+
+    // 市场信息
+    string condition_id = 11;           // Condition ID
+    string market_id = 12;              // Market ID (可选)
+    string outcome = 13;                // YES/NO (可选)
+
+    // 事件类型
+    EventType event_type = 14;
+}
+
+// TradeBatch 批量交易事件
+message TradeBatch {
+    repeated TradeEvent trades = 1;
+    int64 timestamp = 2;
+}
+
