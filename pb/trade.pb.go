@@ -23,6 +23,9 @@ type TradeEvent struct {
 
 	// 事件类型
 	EventType EventType `json:"event_type"`
+
+	// 订单哈希
+	OrderHash string `json:"order_hash,omitempty"`
 }
 
 func (x *TradeEvent) GetTxHash() string {
@@ -121,6 +124,13 @@ func (x *TradeEvent) GetEventType() EventType {
 		return x.EventType
 	}
 	return EventType_EVENT_TYPE_UNSPECIFIED
+}
+
+func (x *TradeEvent) GetOrderHash() string {
+	if x != nil {
+		return x.OrderHash
+	}
+	return ""
 }
 
 func (x *TradeEvent) Reset() {

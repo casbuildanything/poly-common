@@ -29,6 +29,9 @@ message TradeEvent {
 
     // 事件类型
     EventType event_type = 14;
+
+    // 订单哈希
+    string order_hash = 15;
 }
 
 // TradeBatch 批量交易事件
